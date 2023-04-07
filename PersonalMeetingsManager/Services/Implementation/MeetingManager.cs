@@ -5,12 +5,7 @@ namespace PersonalMeetingsManager.Services.Implementation;
 
 public class MeetingManager : IMeetingManager
 {
-    private readonly List<Meeting> _meetings;
-
-    public MeetingManager(List<Meeting> meetings)
-    {
-        _meetings = meetings;
-    }
+    private readonly List<Meeting> _meetings = new();
     
     public void AddMeeting(Meeting meeting)
     {

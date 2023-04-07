@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PersonalMeetingsManager.Models;
 using PersonalMeetingsManager.Services.Implementation;
 using PersonalMeetingsManager.Services.Interface;
 
@@ -14,10 +15,10 @@ public static class Startup
                 ConfigureServices(services);
             });
 
-    static void ConfigureServices(IServiceCollection services)
+    private static void ConfigureServices(IServiceCollection services)
     {
-        services.AddSingleton<IExelExport, ExelExport>();
         services.AddSingleton<IMenu, Menu>();
+        services.AddSingleton<IMeetingManager, MeetingManager>();
+        services.AddSingleton<IExelExport, ExelExport>();
     }
-    
 }

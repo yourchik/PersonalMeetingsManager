@@ -17,28 +17,80 @@ public class Menu : IMenu
     public void ShowMenu()
     {
         Console.WriteLine("Меню управления персональными встречами");
+        
         Console.WriteLine("1. Добавить встречу");
         Console.WriteLine("2. Изменить встречу");
         Console.WriteLine("3. Удалить встречу");
         Console.WriteLine("4. Просмотр встреч на дату");
         Console.WriteLine("5. Экспорт встреч на дату в Excel");
         Console.WriteLine("6. Выход");
+        
         Console.Write("Выберите пункт меню: ");
+        
+        MenuSwitch();
     }
-    
+
+    private void MenuSwitch()
+    {
+        while (true)
+        {
+            switch (Console.ReadLine())
+            {
+                case "1":
+                    AddMeeting();
+                    break;
+                case "2":
+                    EditMeeting();
+                    break;
+                case "3":
+                    DeleteMeeting();
+                    break;
+                case "4":
+                    GetMeetingsByDate();
+                    break;
+                case "5":
+                    ExportMeetingsByDate();
+                    break;
+                case "6":
+                    Environment.Exit(0);
+                    break;
+                default:
+                    Console.WriteLine("Неверный пункт меню введите число от 1 до 6");
+                    continue;
+            }
+
+            break;
+        }
+    }
+
     public void AddMeeting()
     {
-        SetMeetingTime();
+        Console.Write("Введите время начала в формате (yyyy-mm-dd hh-mm): ");
+        var newStart = Console.ReadLine();
+        
+        DateTime newStart1 = DateTime.Parse(Console.ReadLine());
+        
+        Console.Write("Введите время окончания в формате(yyyy-mm-dd hh-mm): ");
+        DateTime newEnd = DateTime.Parse(Console.ReadLine());
+        
         Console.Write("Введите время напоминания в формате(hh-mm): ");
         TimeSpan reminder = TimeSpan.Parse(Console.ReadLine());
+        
         BackToMenu();
+        
     }
     
     public void EditMeeting()
     {
         Console.Write("Введите номер встречи для редактирования: ");
         int editIndex = int.Parse(Console.ReadLine());
-        SetMeetingTime();
+        
+        Console.Write("Введите время начала в формате (yyyy-mm-dd hh-mm): ");
+        DateTime newStart = DateTime.Parse(Console.ReadLine());
+        
+        Console.Write("Введите время окончания в формате(yyyy-mm-dd hh-mm): ");
+        DateTime newEnd = DateTime.Parse(Console.ReadLine());
+        
         Console.Write(" ");
         TimeSpan newReminder = TimeSpan.Parse(Console.ReadLine());
         
@@ -83,5 +135,15 @@ public class Menu : IMenu
         DateTime newStart = DateTime.Parse(Console.ReadLine());
         Console.Write("Введите время окончания в формате(yyyy-mm-dd hh-mm): ");
         DateTime newEnd = DateTime.Parse(Console.ReadLine());
+    }
+    
+    private bool ValidateMenu()
+    {
+        return true;
+    }
+    
+    private bool ValidateTime()
+    {
+        return true;
     }
 }
