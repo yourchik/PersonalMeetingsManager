@@ -2,14 +2,13 @@
 using Microsoft.Extensions.Hosting;
 using PersonalMeetingsManager;
 using PersonalMeetingsManager.Services.Interface;
+using System.Runtime.InteropServices;
 
 var host = Startup.CreateHostBuilder(args).Build();
-
-
-Console.WriteLine("Hello World!");
 
 var menu = host.Services.GetService<IMenu>();
 
 menu?.ShowMenu();
 
 host.WaitForShutdown();
+

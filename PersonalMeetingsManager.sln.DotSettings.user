@@ -1,0 +1,27 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7a5c34ec_002D764a_002D4054_002D8eb5_002D4272cf12f46b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AddMeeting_ValidInput_ShouldAddMeeting" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4EE32480-0285-49AE-99F8-CDFB9BD3277C::net7.0::PersonalMeetingsManager.Tests.MenuTests.AddMeeting_ValidInput_CallsCreateMeeting&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4EE32480-0285-49AE-99F8-CDFB9BD3277C::net7.0::PersonalMeetingsManager.Tests.MenuTests.EditMeeting_ValidInput_CallsCreateMeeting&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=81236dae_002D1dc2_002D4faf_002Da66e_002Da41a93cdb5e7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="SeeMeetingsByDate_ShouldListMeetings #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4EE32480-0285-49AE-99F8-CDFB9BD3277C::net7.0::PersonalMeetingsManager.Tests.MenuTests.SeeMeetingsByDate_ShouldListMeetings&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ac819628_002Dcd13_002D485c_002Dbf6b_002D52dcd3eedbd2/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="SeeMeetingsByDate_ShouldListMeetings" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4EE32480-0285-49AE-99F8-CDFB9BD3277C::net7.0::PersonalMeetingsManager.Tests.MenuTests.SeeMeetingsByDate_ShouldListMeetings&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=dfe8da66_002D1efa_002D4681_002D9a87_002D9db1e18b0916/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="EditMeeting_ValidInput_CallsCreateMeeting" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4EE32480-0285-49AE-99F8-CDFB9BD3277C::net7.0::PersonalMeetingsManager.Tests.MenuTests.EditMeeting_ValidInput_CallsCreateMeeting&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4EE32480-0285-49AE-99F8-CDFB9BD3277C::net7.0::PersonalMeetingsManager.Tests.MenuTests.DeleteMeeting_ValidInput_CallsDeleteMeeting&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4EE32480-0285-49AE-99F8-CDFB9BD3277C::net7.0::PersonalMeetingsManager.Tests.MenuTests.SeeMeetingsByDate_ShouldListMeetings&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f365230f_002D0c4c_002D4f2f_002Dbbc1_002Dba7295985dae/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="SeeMeetingsByDate_ShouldListMeetings #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Project Location="C:\Users\Admin\Desktop\Work\DM\PersonalMeetingsManager\PersonalMeetingsManager.Tests" Presentation="&amp;lt;PersonalMeetingsManager.Tests&amp;gt;" /&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

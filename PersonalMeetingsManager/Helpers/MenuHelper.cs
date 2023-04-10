@@ -2,44 +2,31 @@
 using PersonalMeetingsManager.Models;
 using PersonalMeetingsManager.Services.Interface;
 
-namespace PersonalMeetingsManager.Services.Implementation;
+namespace PersonalMeetingsManager.Helpers;
 
-public class Menu : IMenu
+public static class MenuHelper
 {
-    private readonly IMeetingManager _meetingManager;
-    private readonly IExelExport _exelExport;
-
+    private static IMeetingManager _meetingManager;
+    private static IExelExport _exelExport;
+    private static IMenu _menu;
+    
     private const string InvalidFormatMessage = "Неверный формат времени. Попробуйте еще раз или введите 0 для возврата в главное меню: ";
     private const string MainMenuKey = "0";
     
-    private string _erorrMessage;
-    
-    public Menu(IMeetingManager meetingManager, IExelExport exelExport)
+    private static string _erorrMessage;
+
+    public static void Initialize(IMeetingManager meetingManager, IExelExport exelExport, IMenu menu, string erorrMessage)
     {
         _meetingManager = meetingManager;
         _exelExport = exelExport;
+        _menu = menu;
+        _erorrMessage = erorrMessage;
     }
 
-    public void ShowMenu()
-    {
-        Console.WriteLine("Меню управления персональными встречами");
-        
-        Console.WriteLine("1. Добавить встречу");
-        Console.WriteLine("2. Изменить встречу");
-        Console.WriteLine("3. Удалить встречу");
-        Console.WriteLine("4. Просмотр встреч на дату");
-        Console.WriteLine("5. Экспорт встреч на дату в Excel");
-        Console.WriteLine("6. Выход");
-        
-        Console.Write("Выберите пункт меню: ");
-        
-        MenuSwitch();
-    }
-    
     /// <summary>
     /// Метод проверки валидности пункта меню
     /// </summary>
-    private void MenuSwitch()
+    public static void MenuSwitch()
     {
         while (true)
         {
@@ -70,12 +57,11 @@ public class Menu : IMenu
             break;
         }
     }
-    
-    
+
     /// <summary>
     /// Метод для добавления встречи
     /// </summary>
-    private void AddMeeting()
+    public static void AddMeeting()
     {
         var newStart = PromptForValue("Введите время начала в формате (yyyy-mm-dd hh-mm): ", DateTime.Parse, ValidateDateTimeString );
 
@@ -100,25 +86,27 @@ public class Menu : IMenu
         
         _meetingManager.CreateMeeting(newMeeting);
         Console.WriteLine("Встреча успешно добавлена.");
+        Console.Write("Нажмите любую клавишу для продолжения...");
+        Console.ReadKey();
         BackToMenu();
     }
     
     /// <summary>
     /// Метод для изменения встречи
     /// </summary>
-    private void EditMeeting()
+    public static void EditMeeting()
     {
         var meetings = GetMeetingsByDate();
 
         int num = 1;
-        foreach (var mg in meetings)
+        foreach (var meeting in meetings)
         {
             Console.WriteLine("Список встреч:");
-            Console.WriteLine($"Встреча № {num} начинается в {mg.StartTime} и заканчивается в {mg.EndTime}");
+            Console.WriteLine($"Встреча № {num} начинается в {meeting.StartTime} и заканчивается в {meeting.EndTime}");
         }
         
         Console.WriteLine("Введите любую клавишу для продолжения...");
-        Console.ReadLine();
+        Console.ReadKey();
         int index;
 
         do
@@ -127,6 +115,8 @@ public class Menu : IMenu
         } 
         while (!int.TryParse(Console.ReadLine(), out index) || index < 1 || index > meetings.Count);
 
+        var meetingToEdit = meetings[index - 1];
+    
         var newStart = PromptForValue("Введите новое время начала в формате (yyyy-mm-dd hh-mm): ", DateTime.Parse, ValidateDateTimeString);
         
         while (ValidateMeetingTime(DateTime.Now, newStart))
@@ -143,12 +133,12 @@ public class Menu : IMenu
             Console.WriteLine("Конечное время не может быть меньше начального времени.");
             newEnd = PromptForValue("Введите новое время окончания в формате (yyyy-mm-dd hh-mm): ", DateTime.Parse, ValidateDateTimeString);
         }
+    
+        meetingToEdit.StartTime = newStart;
+        meetingToEdit.EndTime = newEnd;
+        meetingToEdit.Reminder = reminder;
 
-        var meeting = new Meeting(newStart, newEnd, reminder);
-        
-        ValidateMeeting(meeting);
-        
-        _meetingManager.EditMeeting(index - 1, meeting);
+        ValidateMeeting(meetingToEdit);
 
         Console.WriteLine("Встреча успешно отредактирована.");
      
@@ -158,7 +148,7 @@ public class Menu : IMenu
     /// <summary>
     /// Метод для удаления встречи
     /// </summary>
-    private void DeleteMeeting()
+    public static void DeleteMeeting()
     {
         var date = PromptForValue("Введите дату встречи в формате (yyyy-mm-dd): ", DateTime.Parse, ValidateDate);
 
@@ -169,11 +159,10 @@ public class Menu : IMenu
         {
             Console.WriteLine("Список встреч:");
             Console.WriteLine($"Встреча № {num} начинается в {meeting.StartTime} и заканчивается в {meeting.EndTime}");
-            num++;
         }
 
         Console.WriteLine("Введите любую клавишу для продолжения...");
-        Console.ReadLine();
+        Console.ReadKey();
         
         int index;
 
@@ -194,7 +183,7 @@ public class Menu : IMenu
     /// <summary>
     /// Метод для просмотра встреч на дату
     /// </summary>
-    private void SeeMeetingsByDate()
+    public static void SeeMeetingsByDate()
     {
         var meetings = GetMeetingsByDate();
         
@@ -210,17 +199,14 @@ public class Menu : IMenu
     /// <summary>
     /// Метод для экспорта встреч на дату в Excel
     /// </summary>
-    private void ExportMeetingsByDate()
+    public static void ExportMeetingsByDate()
     {
         var meetings = GetMeetingsByDate();
         
-        var num = 1;
         foreach (var meeting in meetings)
         {
-            
             Console.WriteLine("Список встреч:");
-            Console.WriteLine($"Встреча № {num} начинается в {meeting.StartTime} и заканчивается в {meeting.EndTime}");
-            num++;
+            Console.WriteLine(meeting);
         }
         
         Console.WriteLine("Для экспорта встреч в Excel нажмите любую клавишу или 0 для возврата в меню");
@@ -228,7 +214,7 @@ public class Menu : IMenu
         if (Console.ReadLine() == MainMenuKey)
         {
             Console.Clear();
-            ShowMenu();
+            _menu.ShowMenu();
         }
 
         _exelExport.ExportMeetings(meetings);
@@ -241,7 +227,7 @@ public class Menu : IMenu
     /// Метод для получения встреч на дату
     /// </summary>
     /// <returns></returns>
-    private List<Meeting> GetMeetingsByDate()
+    public static List<Meeting> GetMeetingsByDate()
     {
         var date = PromptForValue("Введите дату в формате (yyyy-mm-dd): ", DateTime.Parse, ValidateDate);
 
@@ -263,7 +249,7 @@ public class Menu : IMenu
     /// <param name="dateType">Формат даты или времени</param>
     /// <param name="validateInput">Подходящий метод валидации даты или времени</param>
     /// <returns>Дата/Время</returns>
-    private T PromptForValue<T>(string prompt, Func<string, T> dateType, Func<string, bool> validateInput)
+    private static T PromptForValue<T>(string prompt, Func<string, T> dateType, Func<string, bool> validateInput)
     {
         while (true)
         {
@@ -291,32 +277,28 @@ public class Menu : IMenu
     /// <summary>
     /// Метод для возрата в меню
     /// </summary>
-    private void BackToMenu()
+    public static void BackToMenu()
     {
         Console.Write("Нажмите любую клавишу для продолжения...");
-        var exit = Console.ReadLine();
-        if (exit == "exit")
-        {
-            return;
-        }
+        Console.ReadKey();
         Console.Clear();
-        ShowMenu();
+        _menu.ShowMenu();
     }
     
     /// <summary>
     /// Метод для возврата в меню с сообщением об ошибке
     /// </summary>
     /// <param name="message">Сообщение об ошибке</param>
-    public void BackToMenu(string message)
+    public static void BackToMenu(string message)
     {
         Console.Clear();
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine(message);
         Console.ResetColor();
-        ShowMenu();
+        _menu.ShowMenu();
     }
     
-    public void ValidateMeeting(Meeting meeting)
+    public static void ValidateMeeting(Meeting meeting)
     {
         var metings = _meetingManager.GetAllMeetings().ToList();
             
@@ -330,25 +312,25 @@ public class Menu : IMenu
         }
     }
     
-    private bool ValidateTimeString(string time)
+    public static bool ValidateTimeString(string time)
     {
         var patternTime = @"^([01]\d|2[0-3]):([0-5]\d)$";
         return Regex.IsMatch(time, patternTime);
     }
 
-    private bool ValidateDateTimeString(string dataTime)
+    public static bool ValidateDateTimeString(string dataTime)
     {
         var patternTime = @"^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])\s([01]\d|2[0-3]):([0-5]\d)$";
         return Regex.IsMatch(dataTime, patternTime);
     }
     
-    private bool ValidateDate(string date)
+    public static bool ValidateDate(string date)
     {
         var patternTime = @"^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$";
         return Regex.IsMatch(date, patternTime);
     }
     
-    private bool ValidateMeetingTime(DateTime startTime, DateTime endTime)
+    public static bool ValidateMeetingTime(DateTime startTime, DateTime endTime)
     {
         return startTime > endTime;
     }

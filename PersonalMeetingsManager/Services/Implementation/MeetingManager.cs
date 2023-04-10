@@ -5,9 +5,14 @@ namespace PersonalMeetingsManager.Services.Implementation;
 
 public class MeetingManager : IMeetingManager
 {
-    private readonly List<Meeting> _meetings = new();
-    
-    public void AddMeeting(Meeting meeting)
+    private readonly List<Meeting> _meetings; 
+
+    public MeetingManager(List<Meeting> meetings)
+    {
+        _meetings = meetings;
+    }
+
+    public void CreateMeeting(Meeting meeting)
     {
         _meetings.Add(meeting);
     }
@@ -26,4 +31,10 @@ public class MeetingManager : IMeetingManager
     {
         return _meetings.Where(meeting => meeting.StartTime.Date == date.Date);
     }
+    
+    public IEnumerable<Meeting> GetAllMeetings()
+    {
+        return _meetings;
+    }
+    
 }

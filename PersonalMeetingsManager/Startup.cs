@@ -15,10 +15,11 @@ public static class Startup
                 ConfigureServices(services);
             });
 
-    private static void ConfigureServices(IServiceCollection services)
+    public static void ConfigureServices(IServiceCollection services)
     {
         services.AddSingleton<IMenu, Menu>();
         services.AddSingleton<IMeetingManager, MeetingManager>();
         services.AddSingleton<IExelExport, ExelExport>();
+        services.AddSingleton(new List<Meeting>());
     }
 }

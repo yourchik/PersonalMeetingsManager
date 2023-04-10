@@ -2,15 +2,8 @@
 
 public interface IMenu
 {
+    /// <summary>
+    /// Отображает главное меню программы
+    /// </summary>
     void ShowMenu();
-    
-    public void AddMeeting();
-
-    public void EditMeeting();
-    
-    public void DeleteMeeting();
-    
-    public void GetMeetingsByDate();
-
-    public void ExportMeetingsByDate();
 }
