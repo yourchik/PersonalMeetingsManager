@@ -307,7 +307,7 @@ public class Menu : IMenu
     /// Метод для возврата в меню с сообщением об ошибке
     /// </summary>
     /// <param name="message">Сообщение об ошибке</param>
-    public void BackToMenu(string message)
+    private void BackToMenu(string message)
     {
         Console.Clear();
         Console.ForegroundColor = ConsoleColor.Red;
@@ -315,8 +315,8 @@ public class Menu : IMenu
         Console.ResetColor();
         ShowMenu();
     }
-    
-    public void ValidateMeeting(Meeting meeting)
+
+    private void ValidateMeeting(Meeting meeting)
     {
         var metings = _meetingManager.GetAllMeetings().ToList();
             
